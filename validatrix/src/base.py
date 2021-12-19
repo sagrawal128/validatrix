@@ -5,11 +5,63 @@ from functools import wraps
 from typing import Union, List, Any, Callable, Dict, Tuple
 from warnings import warn
 
+from click import style
+
 
 class ValidationResult:
     """Base class for validation result."""
 
-    pass
+    def __init__(self, message: str = None):
+        self._errors = []
+        self._message = str(message)
+
+    def error(self, message: str):
+        """
+        Indicates that the validation has failed.
+
+        Each time this function is called, it will append the ``message`` to the
+        list of error messages.
+
+        Args:
+            message: The error message for the user.
+
+        Returns:
+            ValidationResult object with a error message.
+        """
+        self._errors.append(message)
+        return self
+
+    @property
+    def message(self):
+        """Green colored message if success, red if failed."""
+        return self._style(self._message)
+
+    @message.setter
+    def message(self, message):
+        """Message setter."""
+        self._message = message
+
+    @property
+    def error_str(self):
+        """Formats the error message."""
+        return "\n".join("* " + err for err in self._errors)
+
+    def __bool__(self):
+        return not self._errors
+
+    def _style(self, text: str):
+        return style(text, fg="green" if self else "red")
+
+    def __str__(self):
+        if self:
+            return self._style("Validation Successful\n") + self.message
+
+        return (
+            self._style("Validation Failed\n")
+            + self.message
+            + style("\nErrors:\n", fg="red")
+            + self.error_str
+        )
 
 
 class ValidationError(Exception):
