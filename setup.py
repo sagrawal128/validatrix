@@ -16,6 +16,6 @@ setup(
     author='Shubham Agrawal',
     author_email='agrawal.shubham1729@gmail.com',
     packages=['validatrix'],
-    python_requires=">3.8,<3.11",
+    python_requires=">=3.7,<3.11",
     install_requires=requires
 )
