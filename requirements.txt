@@ -1,0 +1,2 @@
+pylint
+black==19.10b
