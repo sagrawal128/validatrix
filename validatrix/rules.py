@@ -1,6 +1,6 @@
 from typing import Union, List, Any, Dict
 
-from validatrix.src.base import Rule, ValidationResult
+from validatrix.base import Rule, ValidationResult
 
 
 class HasColumns(Rule):
