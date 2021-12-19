@@ -7,11 +7,25 @@ from warnings import warn
 
 
 class ValidationResult:
+    """Base class for validation result."""
+
     pass
 
 
-class ValidationError:
-    pass
+class ValidationError(Exception):
+    """Base class for validation errors."""
+
+    def __init__(
+        self, message: str = None, validation_result: "ValidationResult" = None
+    ):
+        super().__init__(message or "")
+        self._validation_result = validation_result
+
+    def __str__(self):
+        msg = super().__str__()
+        if self._validation_result is not None:
+            msg += "\n" + str(self._validation_result)
+        return msg
 
 
 def _normalise_func_inputs(
