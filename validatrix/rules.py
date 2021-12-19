@@ -1,3 +1,5 @@
+"""Contains custom rules."""
+
 from typing import Union, List, Any, Dict
 
 from validatrix.base import Rule, ValidationResult
