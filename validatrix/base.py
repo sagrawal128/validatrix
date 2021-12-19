@@ -1,3 +1,5 @@
+"""Contains base classes."""
+
 import inspect
 import logging
 from abc import ABC, abstractmethod
@@ -203,7 +205,7 @@ class Rule(ABC):
         Returns:
             Validation outcome.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
     @property
     def _name(self) -> str:
